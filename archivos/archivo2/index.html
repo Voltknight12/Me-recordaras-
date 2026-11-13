@@ -1,0 +1,606 @@
+<!doctype html>
+<html lang="es">
+<head>
+  <meta charset="utf-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1" />
+  <title>Para ti ❤️</title>
+  <meta name="theme-color" content="#0b0b10" />
+
+  <!--
+    REGALO DE SAN VALENTÍN (1 SOLO ARCHIVO)
+    - Abre este archivo en el celular.
+    - Puedes cambiar textos en la sección CONFIG.
+    - Funciona offline.
+  -->
+
+  <style>
+    :root{
+      --bg0:#07070b;
+      --bg1:#0b0b10;
+      --card:rgba(255,255,255,.06);
+      --card2:rgba(255,255,255,.09);
+      --text:rgba(255,255,255,.92);
+      --muted:rgba(255,255,255,.68);
+      --soft:rgba(255,255,255,.12);
+      --shadow: 0 18px 60px rgba(0,0,0,.45);
+      --radius:22px;
+      --accent:#ff3d7f;
+      --accent2:#8b5cff;
+      --good:#43ffb5;
+      --danger:#ff4d4d;
+    }
+
+    *{box-sizing:border-box}
+    html,body{height:100%}
+    body{
+      margin:0;
+      font-family: ui-sans-serif, system-ui, -apple-system, Segoe UI, Roboto, Helvetica, Arial;
+      color:var(--text);
+      background:
+        radial-gradient(1200px 700px at 15% 15%, rgba(255,61,127,.22), transparent 55%),
+        radial-gradient(1000px 700px at 85% 20%, rgba(139,92,255,.20), transparent 60%),
+        radial-gradient(900px 700px at 55% 95%, rgba(67,255,181,.10), transparent 60%),
+        linear-gradient(180deg, var(--bg0), var(--bg1));
+      overflow-x:hidden;
+    }
+
+    /* Fondo con estrellitas suaves */
+    .stars{position:fixed; inset:0; pointer-events:none; opacity:.55; filter: blur(.2px);}
+
+    .wrap{min-height:100%; display:flex; align-items:center; justify-content:center; padding:22px;}
+    .phone{
+      width:min(440px, 100%);
+      border-radius:32px;
+      background:rgba(255,255,255,.03);
+      border:1px solid rgba(255,255,255,.08);
+      box-shadow: var(--shadow);
+      overflow:hidden;
+      position:relative;
+    }
+
+    header{
+      padding:18px 18px 14px;
+      display:flex;
+      gap:12px;
+      align-items:center;
+      justify-content:space-between;
+      border-bottom:1px solid rgba(255,255,255,.08);
+      background:linear-gradient(180deg, rgba(255,255,255,.06), rgba(255,255,255,0));
+      backdrop-filter: blur(10px);
+    }
+
+    .brand{display:flex; align-items:center; gap:12px;}
+    .badge{
+      width:42px; height:42px;
+      border-radius:14px;
+      display:grid; place-items:center;
+      background:linear-gradient(135deg, rgba(255,61,127,.22), rgba(139,92,255,.20));
+      border:1px solid rgba(255,255,255,.10);
+    }
+    .badge svg{width:22px; height:22px;}
+
+    .titles{line-height:1.1}
+    .titles .t1{font-weight:750; letter-spacing:.2px; font-size:14px; color:var(--muted)}
+    .titles .t2{font-weight:820; font-size:16px}
+
+    .pill{
+      font-size:12px;
+      padding:8px 10px;
+      border-radius:999px;
+      border:1px solid rgba(255,255,255,.10);
+      background:rgba(255,255,255,.05);
+      color:var(--muted);
+      user-select:none;
+    }
+
+    main{padding:18px; display:flex; flex-direction:column; gap:14px;}
+
+    .card{
+      background:linear-gradient(180deg, rgba(255,255,255,.07), rgba(255,255,255,.04));
+      border:1px solid rgba(255,255,255,.10);
+      border-radius:var(--radius);
+      padding:16px;
+      box-shadow: 0 10px 40px rgba(0,0,0,.25);
+    }
+
+    .hero{
+      display:flex;
+      flex-direction:column;
+      gap:10px;
+      position:relative;
+      overflow:hidden;
+    }
+
+    .hero:before{
+      content:"";
+      position:absolute;
+      inset:-2px;
+      background:
+        radial-gradient(520px 220px at 25% 10%, rgba(255,61,127,.20), transparent 60%),
+        radial-gradient(520px 220px at 85% 35%, rgba(139,92,255,.18), transparent 60%);
+      filter: blur(10px);
+      opacity:.9;
+      z-index:0;
+    }
+
+    .hero > *{position:relative; z-index:1}
+
+    .big{
+      font-size:26px;
+      font-weight:900;
+      letter-spacing:-.5px;
+      margin:0;
+    }
+    .sub{margin:0; color:var(--muted); line-height:1.45}
+
+    .btnrow{display:flex; gap:10px; flex-wrap:wrap; margin-top:4px;}
+
+    button{
+      appearance:none;
+      border:none;
+      border-radius:16px;
+      padding:12px 14px;
+      font-weight:750;
+      cursor:pointer;
+      color:rgba(255,255,255,.92);
+      background:rgba(255,255,255,.06);
+      border:1px solid rgba(255,255,255,.12);
+      transition: transform .08s ease, background .2s ease;
+      user-select:none;
+    }
+    button:active{transform: scale(.98)}
+
+    .primary{
+      background: linear-gradient(135deg, rgba(255,61,127,.95), rgba(139,92,255,.85));
+      border: 1px solid rgba(255,255,255,.18);
+    }
+
+    .ghost{background:rgba(255,255,255,.05)}
+
+    .grid{
+      display:grid;
+      grid-template-columns: 1fr 1fr;
+      gap:12px;
+    }
+
+    .mini h3{margin:0 0 6px; font-size:13px; color:rgba(255,255,255,.86)}
+    .mini p{margin:0; font-size:12px; color:var(--muted); line-height:1.35}
+
+    .kpi{
+      display:flex; align-items:baseline; gap:10px;
+      margin-top:8px;
+    }
+    .kpi .num{font-size:22px; font-weight:900; letter-spacing:-.4px}
+    .kpi .lbl{font-size:12px; color:var(--muted)}
+
+    .message{
+      line-height:1.6;
+      color:rgba(255,255,255,.88);
+      font-size:14px;
+      white-space:pre-wrap;
+    }
+
+    .divider{height:1px; background:rgba(255,255,255,.10); margin:10px 0}
+
+    .footer{
+      padding:16px 18px 20px;
+      color:rgba(255,255,255,.55);
+      font-size:12px;
+      text-align:center;
+    }
+
+    /* Modal */
+    .modal{
+      position:fixed;
+      inset:0;
+      display:none;
+      place-items:center;
+      padding:18px;
+      background:rgba(0,0,0,.55);
+      backdrop-filter: blur(8px);
+      z-index:50;
+    }
+    .modal.open{display:grid}
+    .sheet{
+      width:min(520px, 100%);
+      border-radius:26px;
+      background:linear-gradient(180deg, rgba(255,255,255,.09), rgba(255,255,255,.05));
+      border:1px solid rgba(255,255,255,.14);
+      box-shadow: 0 25px 90px rgba(0,0,0,.55);
+      overflow:hidden;
+    }
+    .sheet header{border:none}
+
+    .sheet .content{padding:18px; display:flex; flex-direction:column; gap:12px;}
+
+    .row{
+      display:flex; gap:10px; align-items:center; justify-content:space-between;
+      flex-wrap:wrap;
+    }
+
+    .chip{
+      display:inline-flex; align-items:center; gap:8px;
+      padding:10px 12px;
+      border-radius:999px;
+      border:1px solid rgba(255,255,255,.12);
+      background:rgba(255,255,255,.05);
+      color:rgba(255,255,255,.78);
+      font-weight:700;
+      font-size:12px;
+      user-select:none;
+    }
+
+    .tiny{font-size:12px; color:var(--muted); line-height:1.45}
+
+    /* Confetti */
+    canvas#confetti{position:fixed; inset:0; pointer-events:none; z-index:60;}
+
+    /* Accesibilidad */
+    a{color:inherit}
+  </style>
+</head>
+<body>
+  <canvas id="confetti"></canvas>
+  <svg class="stars" viewBox="0 0 1000 1000" preserveAspectRatio="none" aria-hidden="true">
+    <defs>
+      <radialGradient id="g" cx="50%" cy="50%" r="50%">
+        <stop offset="0" stop-color="white" stop-opacity=".85" />
+        <stop offset="1" stop-color="white" stop-opacity="0" />
+      </radialGradient>
+    </defs>
+    <g opacity=".35">
+      <circle cx="80" cy="120" r="2.2" fill="url(#g)" />
+      <circle cx="220" cy="80" r="1.6" fill="url(#g)" />
+      <circle cx="420" cy="160" r="1.9" fill="url(#g)" />
+      <circle cx="650" cy="110" r="1.4" fill="url(#g)" />
+      <circle cx="910" cy="180" r="2.0" fill="url(#g)" />
+      <circle cx="120" cy="360" r="1.5" fill="url(#g)" />
+      <circle cx="360" cy="340" r="2.1" fill="url(#g)" />
+      <circle cx="560" cy="310" r="1.3" fill="url(#g)" />
+      <circle cx="820" cy="330" r="1.7" fill="url(#g)" />
+      <circle cx="940" cy="420" r="1.4" fill="url(#g)" />
+      <circle cx="160" cy="640" r="2.2" fill="url(#g)" />
+      <circle cx="320" cy="720" r="1.5" fill="url(#g)" />
+      <circle cx="520" cy="680" r="1.9" fill="url(#g)" />
+      <circle cx="760" cy="720" r="1.6" fill="url(#g)" />
+      <circle cx="900" cy="650" r="2.1" fill="url(#g)" />
+    </g>
+  </svg>
+
+  <div class="wrap">
+    <div class="phone" role="application" aria-label="Regalo de San Valentín">
+      <header>
+        <div class="brand">
+          <div class="badge" aria-hidden="true">
+            <svg viewBox="0 0 24 24" fill="none">
+              <path d="M12 21s-7-4.7-9.5-9.1C.6 8.6 2.7 5.5 6 5.5c1.9 0 3.3 1 4 2 0.7-1 2.1-2 4-2 3.3 0 5.4 3.1 3.5 6.4C19 16.3 12 21 12 21Z" stroke="white" stroke-opacity=".9" stroke-width="1.7" />
+            </svg>
+          </div>
+          <div class="titles">
+            <div class="t1" id="smallTitle">San Valentín</div>
+            <div class="t2" id="bigTitle">Para ti, mi persona favorita</div>
+          </div>
+        </div>
+        <div class="pill" id="datePill">14 • 02</div>
+      </header>
+
+      <main>
+        <section class="card hero">
+          <h1 class="big" id="headline">Tengo un regalo para ti ❤️</h1>
+          <p class="sub" id="subtitle">No es caro. Pero sí está hecho con todo lo que siento por ti.</p>
+
+          <div class="btnrow">
+            <button class="primary" id="openBtn">Abrir</button>
+            <button class="ghost" id="musicBtn">🎵 Música</button>
+          </div>
+        </section>
+
+        <section class="grid">
+          <div class="card mini">
+            <h3>Tiempo conociéndonos</h3>
+            <div class="kpi">
+              <div class="num" id="kpiDays">—</div>
+              <div class="lbl">días</div>
+            </div>
+            <p>Y todavía me pones nervioso.</p>
+          </div>
+          <div class="card mini">
+            <h3>Mi parte favorita</h3>
+            <p>Cuando hablo contigo, siento paz.
+              <span style="opacity:.75">(y me sale una sonrisa bien tonta)</span>
+            </p>
+          </div>
+        </section>
+
+        <section class="card">
+          <h3 style="margin:0 0 8px; font-size:14px;">Una nota rápida</h3>
+          <div class="message" id="miniNote">Gracias por existir. Gracias por ser tú.</div>
+          <div class="divider"></div>
+          <div class="tiny">Tip: toca <b>Abrir</b> para ver el mensaje completo.</div>
+        </section>
+      </main>
+
+      <div class="footer">
+        Hecho por Brians S. ❤️
+      </div>
+    </div>
+  </div>
+
+  <!-- Modal con el mensaje principal -->
+  <div class="modal" id="modal" aria-hidden="true">
+    <div class="sheet" role="dialog" aria-modal="true" aria-label="Mensaje">
+      <header>
+        <div class="brand">
+          <div class="badge" aria-hidden="true">
+            <svg viewBox="0 0 24 24" fill="none">
+              <path d="M12 21s-7-4.7-9.5-9.1C.6 8.6 2.7 5.5 6 5.5c1.9 0 3.3 1 4 2 0.7-1 2.1-2 4-2 3.3 0 5.4 3.1 3.5 6.4C19 16.3 12 21 12 21Z" stroke="white" stroke-opacity=".9" stroke-width="1.7" />
+            </svg>
+          </div>
+          <div class="titles">
+            <div class="t1" id="modalSmall">Para</div>
+            <div class="t2" id="modalBig">Mi niña preciosa</div>
+          </div>
+        </div>
+        <button id="closeBtn" class="ghost" aria-label="Cerrar">✕</button>
+      </header>
+
+      <div class="content">
+        <div class="row">
+          <div class="chip" id="chip1">💗 Te amo</div>
+          <div class="chip" id="chip2">🫶 Gracias por ser tú</div>
+          <div class="chip" id="chip3">✨ Eres mi lugar seguro</div>
+        </div>
+
+        <div class="card" style="margin:0;">
+          <div class="message" id="fullMessage"></div>
+        </div>
+
+        <div class="row" style="justify-content:flex-end">
+          <button class="primary" id="confettiBtn">Celebrar 🎉</button>
+        </div>
+
+        <div class="tiny">
+          Si algún día dudas de lo especial que eres, vuelve a abrir esta página.
+        </div>
+      </div>
+    </div>
+  </div>
+
+  <audio id="music" preload="auto"></audio>
+
+  <script>
+    // ============================
+    // CONFIG (EDITA AQUÍ)
+    // ============================
+    const CONFIG = {
+      // Nombre o apodo
+      toName: "Jazmin Martinez Gutierrez",
+
+      // Tu nombre (opcional)
+      fromName: "Brians",
+
+      // Fecha en la que se conocieron (para calcular días)
+      // Formato: "YYYY-MM-DD"
+      metDate: "2025-02-06",
+
+      // Títulos
+      bigTitle: "Para ti, mi persona favorita",
+      headline: "Tengo un regalo para ti ❤️",
+      subtitle: "No es con dinero. Pero sí está hecho con todo lo que siento por ti.",
+
+      // Notita breve (home)
+      miniNote: "Gracias por existir. Gracias por ser tú.",
+
+      // Mensaje principal (modal)
+      fullMessage: `Feliz día de San Valentín ❤️\n\nQuería decirte algo especial.\n\nPero hay algo en ti que se me hace muy difícil dejar ir.\nNo sé explicarlo perfecto… solo siento que contigo encontré a alguien demasiado especial para mí.\n\nYa pasó un año desde que nos conocemos y aun así sigues provocándome cosas que nadie más ha logrado: me pones nervioso, me das paz y me haces sonreír como tonto.\n\nMe encanta hablar contigo.\nEres mi lugar seguro.\n\nSolo quiero que estés bien. Me importas muchísimo y me nace cuidarte, apoyarte y estar para ti.\n\nTe amo. ❤️\n\nY sí… cada vez que escucho “Je te laisserai des mots”, inevitablemente pienso en ti.`,
+
+      // Chips
+      chip1: "💗 Te amo",
+      chip2: "🫶 Me importas",
+      chip3: "✨ Eres mi lugar seguro",
+
+      // Música: pega aquí un link directo a un mp3 si quieres.
+      // Si lo dejas vacío, el botón solo mostrará un mensaje.
+      musicUrl: "song.mp3"
+    };
+
+    // ============================
+    // UTILIDADES
+    // ============================
+    const $ = (q) => document.querySelector(q);
+
+    function fmt2(n){return String(n).padStart(2,'0')}
+
+    function daysBetween(dateStr){
+      const start = new Date(dateStr + "T00:00:00");
+      const now = new Date();
+      const diff = now.getTime() - start.getTime();
+      return Math.max(0, Math.floor(diff / (1000*60*60*24)));
+    }
+
+    function setText(){
+      $("#bigTitle").textContent = CONFIG.bigTitle;
+      $("#headline").textContent = CONFIG.headline;
+      $("#subtitle").textContent = CONFIG.subtitle;
+      $("#miniNote").textContent = CONFIG.miniNote;
+
+      $("#modalBig").textContent = CONFIG.toName;
+      $("#fullMessage").textContent = CONFIG.fullMessage + (CONFIG.fromName ? `\n\n— ${CONFIG.fromName}` : "");
+
+      $("#chip1").textContent = CONFIG.chip1;
+      $("#chip2").textContent = CONFIG.chip2;
+      $("#chip3").textContent = CONFIG.chip3;
+
+      const d = new Date();
+      $("#datePill").textContent = `${fmt2(d.getDate())} • ${fmt2(d.getMonth()+1)}`;
+
+      $("#kpiDays").textContent = daysBetween(CONFIG.metDate);
+
+      // Pequeño título superior
+      $("#modalSmall").textContent = "Para";
+    }
+
+    // ============================
+    // MODAL
+    // ============================
+    function openModal(){
+      const m = $("#modal");
+      m.classList.add("open");
+      m.setAttribute("aria-hidden","false");
+      document.body.style.overflow = "hidden";
+    }
+    function closeModal(){
+      const m = $("#modal");
+      m.classList.remove("open");
+      m.setAttribute("aria-hidden","true");
+      document.body.style.overflow = "";
+    }
+
+    // ============================
+    // CONFETTI (simple y ligero)
+    // ============================
+    const conf = {
+      canvas: null,
+      ctx: null,
+      pieces: [],
+      running: false,
+      raf: null,
+    };
+
+    function resizeConfetti(){
+      conf.canvas.width = window.innerWidth;
+      conf.canvas.height = window.innerHeight;
+    }
+
+    function rand(a,b){return a + Math.random()*(b-a)}
+
+    function spawnConfetti(count=140){
+      const w = conf.canvas.width;
+      const h = conf.canvas.height;
+      conf.pieces.length = 0;
+      for(let i=0;i<count;i++){
+        conf.pieces.push({
+          x: rand(0,w),
+          y: rand(-h, 0),
+          vx: rand(-1.2, 1.2),
+          vy: rand(2.0, 5.4),
+          r: rand(2.2, 5.2),
+          a: rand(0, Math.PI*2),
+          va: rand(-0.12, 0.12),
+          life: rand(70, 140),
+        });
+      }
+    }
+
+    function drawConfetti(){
+      const c = conf.ctx;
+      const w = conf.canvas.width;
+      const h = conf.canvas.height;
+      c.clearRect(0,0,w,h);
+
+      for(const p of conf.pieces){
+        p.x += p.vx;
+        p.y += p.vy;
+        p.a += p.va;
+        p.life -= 1;
+
+        // rebote suave
+        if(p.x < -20) p.x = w+20;
+        if(p.x > w+20) p.x = -20;
+
+        // dibuja como "petalitos" blancos con alpha
+        c.save();
+        c.translate(p.x, p.y);
+        c.rotate(p.a);
+        c.globalAlpha = Math.max(0, Math.min(1, p.life/120));
+        c.fillStyle = "rgba(255,255,255,.85)";
+        c.beginPath();
+        c.ellipse(0,0, p.r*1.2, p.r, 0, 0, Math.PI*2);
+        c.fill();
+        c.restore();
+      }
+
+      conf.pieces = conf.pieces.filter(p => p.life > 0 && p.y < h+30);
+
+      if(conf.pieces.length === 0){
+        stopConfetti();
+        return;
+      }
+
+      conf.raf = requestAnimationFrame(drawConfetti);
+    }
+
+    function startConfetti(){
+      if(conf.running) return;
+      conf.running = true;
+      spawnConfetti();
+      drawConfetti();
+      setTimeout(stopConfetti, 2600);
+    }
+
+    function stopConfetti(){
+      conf.running = false;
+      if(conf.raf) cancelAnimationFrame(conf.raf);
+      conf.ctx.clearRect(0,0, conf.canvas.width, conf.canvas.height);
+    }
+
+    // ============================
+    // MÚSICA
+    // ============================
+    let musicPlaying = false;
+    async function toggleMusic(){
+      const audio = $("#music"); "song.mp3"
+      if(!CONFIG.musicUrl){
+        alert("");
+        return;
+      }
+
+      if(!audio.src) audio.src = CONFIG.musicUrl;
+
+      try{
+        if(!musicPlaying){
+          await audio.play();
+          musicPlaying = true;
+          $("#musicBtn").textContent = "⏸️ Pausar";
+        }else{
+          audio.pause();
+          musicPlaying = false;
+          $("#musicBtn").textContent = "🎵 Música";
+        }
+      }catch(e){
+        alert("Tu navegador bloqueó el autoplay. Toca otra vez para reproducir.");
+      }
+    }
+
+    // ============================
+    // INIT
+    // ============================
+    function init(){
+      setText();
+
+      conf.canvas = $("#confetti");
+      conf.ctx = conf.canvas.getContext("2d");
+      resizeConfetti();
+      window.addEventListener("resize", resizeConfetti);
+
+      $("#openBtn").addEventListener("click", openModal);
+      $("#closeBtn").addEventListener("click", closeModal);
+      $("#modal").addEventListener("click", (e)=>{ if(e.target.id === "modal") closeModal(); });
+      window.addEventListener("keydown", (e)=>{ if(e.key === "Escape") closeModal(); });
+
+      $("#confettiBtn").addEventListener("click", startConfetti);
+      $("#musicBtn").addEventListener("click", toggleMusic);
+      $("#shareBtn").addEventListener("click", share);
+
+      // micro-animación de entrada
+      const phone = document.querySelector('.phone');
+      phone.animate([
+        { transform:'translateY(10px)', opacity:.0 },
+        { transform:'translateY(0)', opacity:1 }
+      ], { duration: 420, easing:'cubic-bezier(.2,.8,.2,1)' });
+    }
+
+    init();
+  </script>
+</body>
+</html>

@@ -1,0 +1,281 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1, viewport-fit=cover">
+<title>Libro antiguo</title>
+<link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=IM+Fell+English:ital@0;1&family=Cormorant+Garamond:wght@500;600&family=Homemade+Apple&display=swap">
+<style>
+:root{
+  --wood1:#1a100a;--wood2:#0b0705;--leather:#4a2616;--leather2:#2b140b;--gold:#c9a45c;
+  --paper:#e6d3a6;--paper2:#cfb07a;--ink:#2a190d;--stain:rgba(92,52,20,.35);
+  --serif:'IM Fell English','Cormorant Garamond',Georgia,serif;--head:'Cormorant Garamond',Georgia,serif;--hand:'Homemade Apple','Brush Script MT',cursive;
+  box-sizing:border-box;padding-top:env(safe-area-inset-top,0px);padding-bottom:env(safe-area-inset-bottom,0px)
+}
+*{box-sizing:inherit;-webkit-tap-highlight-color:transparent}
+html,body{height:100%;margin:0}
+body{background:radial-gradient(ellipse at 50% 30%,var(--wood1),var(--wood2) 75%);font-family:var(--serif);color:var(--ink);overflow:hidden;
+  background-color:var(--wood2)}
+body::before{content:"";position:fixed;inset:0;opacity:.35;pointer-events:none;
+  background:repeating-linear-gradient(92deg,rgba(255,200,140,.04) 0 2px,transparent 2px 9px,rgba(0,0,0,.25) 9px 10px)}
+svg.defs{position:absolute;width:0;height:0}
+.stage{position:fixed;inset:0;padding:calc(env(safe-area-inset-top,0px) + 14px) 14px calc(env(safe-area-inset-bottom,0px) + 14px);display:flex;align-items:center;justify-content:center;perspective:1600px}
+.view{position:absolute;inset:14px;display:none}
+.view.on{display:block}
+
+/* MÚSICA */
+.cover .mus{position:absolute;top:28px;right:28px;z-index:3;min-height:40px;font-size:14px;padding:6px 10px;background:rgba(0,0,0,.4)}
+#musR{min-height:48px;font-size:15px;font-weight:600;background:rgba(15,8,4,.85);border:1.5px solid var(--gold)}
+/* PORTADA */
+.cover{inset:14px;max-width:460px;margin:0 auto;border-radius:6px 14px 14px 6px;transform-origin:left center;transition:transform 1s cubic-bezier(.6,.05,.3,1),opacity .6s;
+  background:
+   radial-gradient(circle at 20% 15%,rgba(255,190,120,.12),transparent 40%),
+   radial-gradient(circle at 80% 90%,rgba(0,0,0,.5),transparent 55%),
+   linear-gradient(135deg,var(--leather),var(--leather2));
+  box-shadow:0 30px 60px rgba(0,0,0,.7),inset 0 0 0 2px rgba(0,0,0,.5),inset 0 0 60px rgba(0,0,0,.6);
+  display:flex;flex-direction:column;align-items:center;justify-content:center;padding:34px 26px;text-align:center;overflow:hidden}
+.cover::before{content:"";position:absolute;inset:0;filter:url(#grain);opacity:.55;mix-blend-mode:multiply;pointer-events:none}
+.cover::after{content:"";position:absolute;left:0;top:0;bottom:0;width:22px;background:linear-gradient(90deg,rgba(0,0,0,.65),rgba(255,200,140,.08) 60%,transparent)}
+.frame{position:absolute;inset:16px;border:1.5px solid var(--gold);opacity:.7;border-radius:3px;pointer-events:none}
+.frame::after{content:"";position:absolute;inset:5px;border:1px solid var(--gold);opacity:.6}
+.orn{color:var(--gold);font-size:22px;letter-spacing:.4em;opacity:.85}
+.title{font-family:var(--head);color:var(--gold);font-size:clamp(30px,9vw,42px);margin:10px 0 4px;line-height:1.1;text-shadow:0 1px 0 #000,0 0 14px rgba(201,164,92,.25);font-weight:600}
+.sub{font-family:var(--hand);color:#b8955a;font-size:15px;margin:0 0 26px}
+.menu{display:flex;flex-direction:column;gap:12px;width:100%;position:relative;z-index:2}
+.opt{font-family:var(--head);font-size:20px;font-weight:600;color:var(--gold);background:linear-gradient(180deg,rgba(0,0,0,.28),rgba(0,0,0,.12));
+  border:1px solid rgba(201,164,92,.55);border-radius:2px;padding:14px 10px;min-height:52px;cursor:pointer;position:relative;
+  box-shadow:inset 0 0 0 3px rgba(0,0,0,.25),inset 0 0 0 4px rgba(201,164,92,.25);transition:background .3s,color .3s,transform .2s,letter-spacing .3s}
+.opt:hover,.opt:focus-visible{background:rgba(201,164,92,.16);color:#f0d9a2;letter-spacing:.03em;outline:none}
+.opt:active{transform:scale(.97)}
+.opt small{display:block;font-family:var(--serif);font-style:italic;font-weight:400;font-size:12px;opacity:.7;margin-top:2px}
+.cover.opening{transform:rotateY(-105deg);opacity:0;pointer-events:none}
+
+/* PAPEL */
+.paper{background:
+   radial-gradient(ellipse at var(--sx1,20%) var(--sy1,25%),var(--stain),transparent 22%),
+   radial-gradient(circle at var(--sx2,75%) var(--sy2,70%),rgba(110,70,30,.3),transparent 17%),
+   radial-gradient(ellipse at var(--sx3,60%) var(--sy3,10%),rgba(60,35,15,.22),transparent 14%),
+   radial-gradient(ellipse at center,var(--paper) 40%,var(--paper2) 100%);
+  position:relative;overflow:hidden}
+.paper::before{content:"";position:absolute;inset:0;filter:url(#fibers);opacity:.5;mix-blend-mode:multiply;pointer-events:none}
+.paper::after{content:"";position:absolute;inset:0;pointer-events:none;box-shadow:inset 0 0 38px rgba(70,35,10,.6),inset 0 0 6px rgba(40,20,5,.6)}
+
+/* LECTOR */
+.reader{width:100%;height:100%;max-width:460px;margin:0 auto;display:none;flex-direction:column;gap:10px}
+.reader.on{display:flex}
+.bar{display:flex;justify-content:space-between;align-items:center;color:var(--gold);font-family:var(--head);font-size:16px}
+.tbtn{background:none;border:1px solid rgba(201,164,92,.5);color:var(--gold);font-family:var(--head);font-size:16px;padding:9px 14px;min-height:44px;border-radius:2px;cursor:pointer}
+.tbtn:disabled{opacity:.3}
+.tbtn:focus-visible,.tbtn:hover{background:rgba(201,164,92,.15);outline:none}
+#prev,#next{flex:1;background:linear-gradient(180deg,#e0bd74,#a97f37);color:#2a1507;border:1px solid #f3deaa;font-size:20px;font-weight:600;min-height:56px;box-shadow:0 5px 16px rgba(0,0,0,.65)}
+#prev:disabled,#next:disabled{opacity:.3}
+#prev:active,#next:active{transform:scale(.97)}
+#home{background:rgba(15,8,4,.85);border:1.5px solid var(--gold);min-height:48px;font-size:17px;font-weight:600;box-shadow:0 3px 10px rgba(0,0,0,.6)}
+.bar{gap:10px}
+.book{flex:1;position:relative;perspective:1800px;min-height:0}
+.leaf{position:absolute;inset:0;border-radius:3px 8px 8px 3px;transform-origin:left center;box-shadow:0 18px 40px rgba(0,0,0,.65),-6px 0 0 -2px #3a2010;display:flex;flex-direction:column;padding:34px 26px 30px 34px}
+.leaf::marker{content:""}
+.spine{position:absolute;left:0;top:0;bottom:0;width:26px;background:linear-gradient(90deg,rgba(40,18,5,.75),rgba(40,18,5,0));z-index:3;pointer-events:none}
+.sheen{position:absolute;inset:0;z-index:4;pointer-events:none;background:linear-gradient(90deg,rgba(0,0,0,.55),transparent 70%);opacity:0}
+.leaf.out{animation:out .55s cubic-bezier(.55,.05,.4,1) forwards}
+.leaf.in{animation:inn .55s cubic-bezier(.3,.6,.4,1) both}
+.leaf.outb{animation:inn .5s reverse cubic-bezier(.3,.6,.4,1) forwards}
+@keyframes out{to{transform:rotateY(-95deg)}}
+@keyframes inn{from{transform:rotateY(95deg)}to{transform:rotateY(0)}}
+.leaf.out .sheen,.leaf.in .sheen,.leaf.outb .sheen{animation:sh .55s ease-in-out}
+@keyframes sh{0%,100%{opacity:0}50%{opacity:1}}
+.txt{position:relative;z-index:2;flex:1;overflow:hidden;font-size:clamp(16px,4.6vw,19px);line-height:1.62;hyphens:auto;text-align:justify}
+.txt h2{font-family:var(--head);text-align:center;font-size:1.5em;margin:0 0 .8em;font-weight:600}
+.txt p{margin:0 0 .9em;text-indent:1.2em}
+.txt p.first{text-indent:0}
+.txt em{font-style:italic}
+.folio{position:relative;z-index:2;text-align:center;font-family:var(--hand);font-size:12px;opacity:.7;padding-top:8px}
+.meas{position:absolute;visibility:hidden;pointer-events:none;left:-9999px}
+
+/* ARCHIVOS */
+.files{position:fixed;inset:0;z-index:20;background:#000;display:none}
+.files.on{display:block}
+.fwrap{position:absolute;top:0;bottom:0;left:50%;transform:translateX(-50%);width:min(100vw,calc(100dvh*9/16));height:100%;overflow:hidden;background:#000}
+.fwrap iframe{width:100%;height:100%;border:0;display:block;background:#000}
+.fclose{position:absolute;top:calc(env(safe-area-inset-top,0px) + 10px);left:10px;z-index:30;background:rgba(15,8,4,.72);color:var(--gold);border:1px solid rgba(201,164,92,.7)}
+.sheet{flex:1;padding:18px;display:flex;flex-direction:column;border-radius:4px;box-shadow:0 18px 40px rgba(0,0,0,.65);min-height:0}
+.sheet>*{position:relative;z-index:2}
+.sheet.fr{padding:6px}
+.sheet iframe{flex:1;width:100%;border:1px solid rgba(70,35,10,.5);background:#fff;border-radius:2px}
+.empty{color:#e6d3a6;position:absolute;top:50%;left:0;right:0;transform:translateY(-50%);margin:auto;text-align:center;font-size:17px;line-height:1.6;padding:12px}
+.empty b{font-family:var(--head);font-size:24px;display:block;margin-bottom:10px}
+.empty code{font-family:Consolas,monospace;font-size:13px;background:rgba(60,30,10,.12);padding:2px 5px}
+@media (prefers-reduced-motion:reduce){.cover,.leaf{animation:none!important;transition:none!important}}
+</style>
+</head>
+<body>
+<svg class="defs" aria-hidden="true">
+  <filter id="grain"><feTurbulence type="fractalNoise" baseFrequency=".9" numOctaves="3" seed="4"/><feColorMatrix values="0 0 0 0 .1  0 0 0 0 .05  0 0 0 0 .02  0 0 0 .55 0"/></filter>
+  <filter id="fibers"><feTurbulence type="fractalNoise" baseFrequency=".02 .6" numOctaves="4" seed="9"/><feColorMatrix values="0 0 0 0 .35  0 0 0 0 .22  0 0 0 0 .1  0 0 0 .6 -.1"/></filter>
+</svg>
+
+<audio id="bgm" loop preload="auto"></audio>
+<main class="stage">
+  <!-- PORTADA -->
+  <section class="view on cover" id="cover" aria-label="Portada">
+    <div class="frame"></div>
+    <button class="tbtn mus" id="musC">♪ Reproducir</button>
+    <div class="orn">❦ ✦ ❦</div>
+    <h1 class="title" id="bookTitle">Libro de<br>Memorias</h1>
+    <p class="sub">manuscrito guardado</p>
+    <nav class="menu" id="menu" aria-label="Contenido"></nav>
+    <div class="orn" style="margin-top:22px">❧</div>
+  </section>
+
+  <!-- LECTOR -->
+  <section class="reader" id="reader" aria-label="Lectura">
+    <div class="bar"><button class="tbtn" id="home">Cerrar libro</button><button class="tbtn" id="musR">♪ Reproducir</button><span id="count" aria-live="polite"></span></div>
+    <div class="book" id="book"></div>
+    <div class="bar"><button class="tbtn" id="prev">‹ Anterior</button><button class="tbtn" id="next">Siguiente ›</button></div>
+  </section>
+
+  <!-- ARCHIVOS -->
+  <section class="files" id="files" aria-label="Archivo">
+    <button class="tbtn fclose" id="back">Cerrar libro</button>
+    <div class="fwrap" id="sheet"></div>
+  </section>
+</main>
+
+<script>
+/* ===== CONFIGURACIÓN: cambia aquí nombres, texto y archivos ===== */
+const CONFIG = {
+  title: "Libro de\nMemorias",
+  main: { name: "Escrito", note: "Abrir el libro" },
+  // path: ruta relativa al archivo (p. ej. "archivos/archivo1/index.html"). Vacío = espacio preparado.
+  slots: [
+    { name: "Archivo 1", path: "archivos/archivo1/index.html" },
+    { name: "Archivo 2", path: "archivos/archivo2/index.html" },
+    { name: "Archivo 3", path: "archivos/archivo3/index.html" }
+  ],
+  // Cada elemento del arreglo es un párrafo. El primero puede ser el título con "# ".
+  // Escrito: vacío por ahora. Cada elemento es un párrafo; "# " al inicio marca el título.
+  text: [
+    "# Tócame por última vez",
+    "Hola, preciosa... bueno, Jaez o Jazmín, Lesly, jaja... Quiero que cuando leas esto prestes mucha atención...",
+    "Bueno, para empezar, quiero decirte que estoy muy agradecido por el tiempo que me diste. La verdad, no creí que fuera a ser tan bonito que hasta incluso tuve que llegar a apegarme tanto a ti...",
+    "Sabes que yo te amo y siempre he sentido cosas por ti, pero bueno... al parecer tú ya no y no puedo hacer nada para cambiarlo.",
+    "Siento que no me esforcé lo suficiente para estar contigo y hacerte sentir amada, querida, respetada... Y, para serte sincero, había cosas que me molestaban, de las cuales nunca prestaste atención, y ahora me arrepiento de no decirte porque cada vez se empeoraba más y más...",
+    "Sabes que yo te apoyé incondicionalmente hasta donde pude... No me quejo, me gustó poder apoyarte, pero... sentía que no estaba siendo recíproco. Pero ¿qué podía pedir si no éramos nada?... Como dijiste... Sin embargo, hice como que no me importó porque, si te decía, sabemos que hubieras dicho: (*¿Es en serio? Te voy a colgar*). Por eso nunca lo dije y te traté con respeto, y lo sabes...",
+    "Había cosas que me hacían sentir menos o nada porque simplemente era como que yo no importaba...",
+    "El ejemplo está en donde me dijiste que las veces que te compraba cosas o te daba dinero y te preguntaban quién te lo había dado... decías: (*Capi me lo dio*). Pero... ¿y yo? ¿No valió el esfuerzo para nada entonces? Por algo tus papás lo estiman más... Los pasteles, regalos, dinero, todo eso, y nunca supieron que fui yo. Cuando supe eso, algo de dentro de mí se rompió, pero dije: (*Ni modo...*).",
+    "Cuando me hablaste de tu ex, tu primer ex... me hizo sentir horrible porque, al parecer, no causaba impacto el cariño y amor que yo te daba... Seguías aferrada a él. No te culpo, fue tu primer amor, y dijiste que nada iba a ser igual después de ese primer buen amor, aunque por más que me esforzara no iba a tener el impacto de aquella, tu primera relación... En fin.",
+    "No reprocho y no estoy cobrando nada... pero me hubiera gustado sentir un poco de crédito o que al menos tus papás supieran quién era la persona real que te apoyaba incondicionalmente... y no darle créditos a alguien que te hacía sentir mal por cobrarte. Lo mío fue de corazón y me alegra poder haberte apoyado, en fin.",
+    "Esto solo es algo de mucho y la verdad no quiero ni decir más porque no vale la pena hablar del pasado, al final nunca lo cambiará...",
+    "Yo siempre te di el tiempo y mi cariño, pero ¿cuándo yo lo necesitaba?... A veces estabas en tu propio mundo que ni te dabas cuenta...",
+    "¿Recuerdas aquella vez que te dije que yo solo vengo a este mundo para apoyar y no ser apoyado? Al final fue real y no quiero victimizarme ni nada porque sería muy estúpido, pero... son algunas de las cosas que seguro no tomaste en cuenta y me hubiera gustado que sí...",
+    "Sé que te preguntarás: (*¿Y por qué seguías conmigo?*). Pues porque yo sí te amé demasiado y estaba tan ocupado dándote mi atención a ti que se te olvidó que alguien más la necesitaba... Hasta yo me olvidé de mí, me entregué a ti y sin ser nada... Pero no era tu obligación y no voy a decir que no me apoyaste, sí lo hiciste, pero al hacerlo creo que no era de la manera correcta o empática como dices que uno debería de ser...",
+    "Ejemplo: cuando murió mi único mejor amigo, que venía a verme cuando caí en depresión y fue arrollado por un tren, tan solo dijiste: (*Ni modo, de alguna manera todos moriremos*).",
+    "O cuando te dije hace poco: (*Ya escuché la canción y la ensayé para cantártela*), y dijiste: (*AHHH, ni te la sabes, mejor nooo, olvídalo*). Eso me hizo sentir mal. ¿Lo notaste?",
+    "Cada día llegaba a casa esperando a hablar contigo y, bueno, sentía que no te importaba porque me llamabas tarde porque se te olvidaba o a veces ni lo hacías porque te quedabas dormida. Y yo era como: (*¿Por qué me puedo acordar de ella hasta en mi momento más ocupado, cansado o con sueño, pero ella no de mí?*). Eso me hacía sentir mal. ¿Lo notaste?",
+    "Hice demasiado, pero era tan irregular que pedía de más... a alguien que no podía hacer lo mismo...",
+    "Gracias, ya no tomo alcohol, tengo trabajo estable, conseguí certificado gracias a ti... o tal vez por el hecho de que yo quería estar contigo de verdad, que hice cosas para cumplir tu estándar.",
+    "Odio esto, simplemente odio todo y la verdad yo me di cuenta de todo mucho antes. La pérdida de interés hacia mí se iba desvaneciendo; cuando te hablaba, ya ni me respondías o cuando te daba cariño, ya no recibía de vuelta lo mismo, más que un cambio de tema. Pero ¿sabes algo?, yo siempre entendía y me callaba para no estresarte más.",
+    "Decidí que puedo pelear contra las personas que te amen, pero no puedo pelear contra alguien que te atraiga o tú ames, y esto involucra a mi promesa de desaparecer, lo prometí y ahora te lo cumplo...",
+    "Si hasta este momento del escrito puedes recordar, recuerda esta frase: (*No te preocupes, yo entiendo*). Siempre entendía, pero tú, a mí no...",
+    "No sé si estaré con vida después de este año, la verdad estoy cansado... desde hace mucho y ni siquiera lo notaste. Ahora puedes estar enojada o triste, o tal vez ni siquiera darle importancia; no te preocupes, yo entiendo...",
+    "No volverás a verme y tú podrás continuar con tu vida sin ninguna interferencia de mi parte. Será como si nunca hubiera existido, lo prometo. Te amo...",
+    "Mi nombre es Brians Salas Sandoval, un gusto, Lesly Jazmín Martínez Gutiérrez."
+  ]
+};
+/* ================================================================ */
+const $=id=>document.getElementById(id);
+const rnd=n=>{const x=Math.sin(n*127.1)*43758.5453;return x-Math.floor(x)};
+document.getElementById('bookTitle').innerHTML=CONFIG.title.replace(/\n/g,'<br>');
+
+const entries=[{name:CONFIG.main.name,note:CONFIG.main.note,kind:'book'},...CONFIG.slots.map((s,i)=>({name:s.name,note:s.path?'Abrir archivo':'Espacio preparado',kind:'file',i}))];
+$('menu').innerHTML=entries.map((e,k)=>`<button class="opt" data-k="${k}">${e.name}<small>${e.note}</small></button>`).join('');
+$('menu').onclick=e=>{const b=e.target.closest('.opt');if(!b)return;const en=entries[b.dataset.k];en.kind==='book'?openBook():openFile(en.i)};
+
+const esc=s=>s.replace(/&/g,'&amp;').replace(/</g,'&lt;');
+const fmt=s=>esc(s).replace(/\(\*(.+?)\*\)/g,'(<em>$1</em>)');
+function block(p,first){return p.startsWith('# ')?`<h2>${esc(p.slice(2))}</h2>`:`<p class="${first?'first':''}">${fmt(p)}</p>`}
+
+let pages=[],cur=0,busy=false;
+function paginate(){
+  const book=$('book'),w=book.clientWidth,h=book.clientHeight;
+  const meas=document.createElement('div');meas.className='leaf paper meas';meas.style.cssText=`width:${w}px;height:${h}px;position:absolute`;
+  meas.innerHTML='<div class="txt" style="flex:1"></div><div class="folio">0</div>';
+  document.body.appendChild(meas);const t=meas.querySelector('.txt');
+  pages=[];let html='',n=0;
+  const fits=()=>t.scrollHeight<=t.clientHeight+1;
+  const flush=()=>{if(html){pages.push(html);html='';t.innerHTML=''}};
+  CONFIG.text.forEach(p=>{
+    const b=block(p,html===''); t.innerHTML=html+b;
+    if(fits()){html+=b;return}
+    flush(); t.innerHTML=block(p,true);
+    if(fits()){html=block(p,true);return}
+    // párrafo más largo que una página: se continúa en la siguiente por palabras
+    const words=p.split(' ');let chunk='',first=true;
+    for(const wd of words){const test=chunk?chunk+' '+wd:wd;t.innerHTML=block(test,first);
+      if(!fits()&&chunk){pages.push(block(chunk,first));chunk=wd;first=false;t.innerHTML=''}else chunk=test}
+    html=block(chunk,false);
+  });
+  flush();document.body.removeChild(meas);
+  if(!pages.length)pages=['<p style="text-align:center;text-indent:0;opacity:.55;margin-top:40%">Las páginas aún están en blanco.</p>'];
+}
+function leaf(i,cls){
+  const d=document.createElement('div');d.className='leaf paper '+(cls||'');
+  [1,2,3].forEach(k=>{d.style.setProperty('--sx'+k,(rnd(i*3+k)*90+5)+'%');d.style.setProperty('--sy'+k,(rnd(i*7+k+9)*90+5)+'%')});
+  const hue=Math.round((rnd(i+3)-.5)*14);d.style.filter=`sepia(${.1+rnd(i)*.15}) hue-rotate(${hue}deg)`;
+  d.innerHTML=`<div class="spine"></div><div class="sheen"></div><div class="txt">${pages[i]}</div><div class="folio">${i+1}</div>`;
+  return d;
+}
+function show(){const b=$('book');b.innerHTML='';b.appendChild(leaf(cur));upd()}
+function upd(){$('count').textContent=`Página ${cur+1} de ${pages.length}`;$('prev').disabled=cur===0;$('next').disabled=cur===pages.length-1}
+function go(dir){
+  if(busy)return;const to=cur+dir;if(to<0||to>=pages.length)return;busy=true;const b=$('book');
+  if(dir>0){
+    const under=leaf(to);under.style.zIndex=1;b.insertBefore(under,b.firstChild);
+    const top=b.lastChild;top.style.zIndex=2;top.classList.add('out');
+    top.onanimationend=()=>{cur=to;show();busy=false};
+  }else{
+    const under=b.firstChild;under.style.zIndex=1;
+    const nl=leaf(to,'in');nl.style.zIndex=2;b.appendChild(nl);
+    nl.onanimationend=()=>{cur=to;show();busy=false};
+  }
+  cur=cur; upd2(to);
+}
+function upd2(to){$('count').textContent=`Página ${to+1} de ${pages.length}`;$('prev').disabled=to===0;$('next').disabled=to===pages.length-1}
+$('next').onclick=()=>go(1);$('prev').onclick=()=>go(-1);
+addEventListener('keydown',e=>{if(!$('reader').classList.contains('on'))return;if(e.key==='ArrowRight')go(1);if(e.key==='ArrowLeft')go(-1);if(e.key==='Escape')closeAll()});
+let sx=null;$('book').addEventListener('touchstart',e=>sx=e.touches[0].clientX,{passive:true});
+$('book').addEventListener('touchend',e=>{if(sx===null)return;const dx=e.changedTouches[0].clientX-sx;if(Math.abs(dx)>45)go(dx<0?1:-1);sx=null});
+
+const bgm=$('bgm');bgm.loop=true;bgm.src=window.EMBED_MUSIC||'assets/musica.mp3';
+let musStarted=false;
+function musUI(){const t=bgm.paused?'♪ Reproducir':'♪ Pausar';$('musC').textContent=t;$('musR').textContent=t}
+bgm.addEventListener('play',musUI);bgm.addEventListener('pause',musUI);
+$('musC').onclick=$('musR').onclick=()=>{bgm.paused?bgm.play().catch(()=>{}):bgm.pause()};
+musUI();
+const cover=$('cover');
+function openBook(){
+  if(!musStarted){musStarted=true;bgm.play().catch(()=>{})}
+  cover.classList.add('opening');
+  setTimeout(()=>{cover.style.display='none';$('reader').classList.add('on');paginate();cur=0;show()},700);
+}
+function openFile(i){
+  const s=CONFIG.slots[i];bgm.pause();cover.classList.add('opening');
+  setTimeout(()=>{
+    cover.style.display='none';$('files').classList.add('on');
+    const sh=$('sheet');
+    sh.className='fwrap';
+    if(window.EMBED&&EMBED[i]){sh.innerHTML='';const f=document.createElement('iframe');f.title=s.name;f.allow='autoplay';f.srcdoc=EMBED[i];sh.appendChild(f)}else
+    sh.innerHTML=s.path?`<iframe src="${s.path}" title="${s.name}" allow="autoplay"></iframe>`
+      :`<div class="empty"><b>${s.name}</b>Este espacio está preparado. Para conectar un archivo, copia sus archivos a <code>archivos/archivo${i+1}/</code> y escribe su ruta en <code>CONFIG.slots[${i}].path</code>.</div>`;
+  },700);
+}
+function closeAll(){
+  $('sheet').innerHTML=''; /* destruye el archivo: la música se detiene al instante */
+  $('reader').classList.remove('on');$('files').classList.remove('on');
+  cover.style.display='';void cover.offsetWidth;cover.classList.remove('opening');
+}
+$('home').onclick=closeAll;$('back').onclick=closeAll;
+let rt;addEventListener('resize',()=>{clearTimeout(rt);rt=setTimeout(()=>{if($('reader').classList.contains('on')){const old=cur/Math.max(1,pages.length);paginate();cur=Math.min(pages.length-1,Math.floor(old*pages.length));show()}},250)});
+</script>
+</body>
+</html>

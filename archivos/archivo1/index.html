@@ -1,0 +1,245 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+<meta charset="UTF-8">
+<title>Feliz Cumpleaños, Jaez Wicke 🖤</title>
+<style>
+  body {
+    margin: 0;
+    height: 100vh;
+    font-family: 'Courier New', cursive;
+    overflow: hidden;
+    background: #000;
+    cursor: pointer;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    flex-direction: column;
+  }
+
+  /* Fondo ciudad de noche */
+  #fondo {
+    position: absolute;
+    top: 0; left: 0;
+    width: 100vw; height: 100vh;
+    background: url("ciudad.jpg") no-repeat center center/cover;
+    z-index: 0;
+    display: none;
+  }
+
+  /* Contenedor de texto centrado sobre la ciudad */
+  #texto-container {
+    position: absolute;
+    top: 50%;
+    left: 50%;
+    transform: translate(-50%, -50%);
+    display: none;
+    flex-direction: column;
+    align-items: center;
+    text-align: center;
+    z-index: 2;
+    font-style: italic; /* cursiva */
+  }
+
+  #texto-container h1 {
+    font-size: 3em;
+    animation: latido 1.5s infinite;
+    color: white;
+    margin: 0 0 10px 0;
+  }
+
+  #texto-container p {
+    font-size: 1.5em;
+    color: white;
+    margin: 0;
+  }
+
+  @keyframes latido {
+    0%,100% {transform: scale(1);}
+    50% {transform: scale(1.2);}
+  }
+
+  /* Overlay tipo regalo */
+  #overlay {
+    position: fixed;
+    top:0; left:0;
+    width:100vw; height:100vh;
+    background: url('regalo.jpg') no-repeat center center/cover;
+    z-index: 1000;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    flex-direction: column;
+    color: white;
+    font-size: 2.5em;
+    font-style: italic; /* cursiva */
+    text-align: center;
+  }
+
+  /* Estrellitas animadas */
+  .estrella {
+    position: absolute;
+    background: yellow;
+    clip-path: polygon(50% 0%, 61% 35%, 98% 35%, 68% 57%, 79% 91%, 50% 70%, 21% 91%, 32% 57%, 2% 35%, 39% 35%);
+    animation: brillar 0.7s ease-out forwards;
+  }
+
+  @keyframes brillar {
+    0% { transform: scale(1) translate(0,0); opacity:1;}
+    100% { transform: scale(0.3) translate(var(--x), var(--y)); opacity:0;}
+  }
+
+  /* Gatito caminando */
+  #gatito {
+    position: absolute;
+    bottom: 20px;
+    left: -150px;
+    width: 220px;
+    animation: caminar 5s linear infinite;
+    z-index: 2;
+    display: none;
+  }
+
+  @keyframes caminar {
+    0% { left: -180px; }
+    100% { left: calc(100% - 180px); }
+  }
+
+  /* Corazones */
+  .corazon {
+    position: absolute;
+    width: 20px;
+    height: 20px;
+    background: red;
+    transform: rotate(45deg);
+    animation: caer 5s linear infinite;
+    z-index: 1;
+  }
+
+  .corazon::before,
+  .corazon::after {
+    content:"";
+    position: absolute;
+    width:20px; height:20px;
+    background:red;
+    border-radius:50%;
+  }
+
+  .corazon::before { top:-10px; left:0; }
+  .corazon::after { left:-10px; top:0; }
+
+  @keyframes caer {
+    0% { top:-10%; opacity:1;}
+    100% { top:110%; opacity:0;}
+  }
+
+</style>
+</head>
+<body>
+
+<!-- Fondo ciudad -->
+<div id="fondo"></div>
+
+<!-- Overlay tipo regalo -->
+<div id="overlay"></div>
+
+<!-- Contenedor de texto centrado -->
+<div id="texto-container">
+  <h1 id="titulo">Feliz Cumpleaños Preciosa! 🗣️🎉🎂</h1>
+  <p id="mensaje">contaste los 21 toques verdad?...❤️ Espero y sigas cumpliendo muchos más! Sabes que te quiero, no lo olvides!</p>
+</div>
+
+<!-- Gatito -->
+<img src="gatito.gif" id="gatito" alt="Gatito caminando">
+
+<!-- Música -->
+<audio id="musica" src="musica.mp3" loop></audio>
+
+<script>
+const frases = 
+["toca",
+  "¡Presióname otra vez!",
+  "¡En serio?!",
+  "Wiwiwi",
+  "¿Que sí te quiero?",
+  "Psss, claro que sí 😏",
+  "Jaja, ya es la última, presióname una vez más ❤️",
+  "waaajaja 🫵😹",
+  "perdon jaja tu sigue tocando",
+  "ya casi",
+  "wow en serio te gustaria ver? sigue tocando!",
+  "jijijija",
+  "te cansaste?",
+  "un poco mas!",
+  "te quiero (sigue presionando)",
+  "ya en serio, te amo...",
+  "rdido un perro? JAJA",
+  "No?, a pero el toby si JAJAJA",
+  "Ya casi preciosa!",
+  "🎉 ¡Último toque, abre el regalo! 🎉",
+  "contaste los 21 toques verdad?...❤️",
+  ];
+
+let clicks = 0;
+const overlay = document.getElementById('overlay');
+const fondo = document.getElementById('fondo');
+const textoContainer = document.getElementById('texto-container');
+const musica = document.getElementById('musica');
+const gatito = document.getElementById('gatito');
+
+// Primer texto
+overlay.textContent = frases[clicks];
+
+overlay.addEventListener('click', (e) => {
+  // Mostrar frase actual
+  overlay.textContent = frases[clicks];
+
+  // Crear estrellitas grandes alrededor del toque
+  for(let i=0;i<8;i++){
+    const estrella = document.createElement('div');
+    estrella.className = 'estrella';
+
+    // Posición
+    estrella.style.left = (e.clientX) + 'px';
+    estrella.style.top = (e.clientY) + 'px';
+
+    // Tamaño aleatorio más grande
+    const tamaño = 50 + Math.random() * 60; // 20px a 50px
+    estrella.style.width = tamaño + 'px';
+    estrella.style.height = tamaño + 'px';
+
+    // Movimiento aleatorio
+    estrella.style.setProperty('--x', (Math.random()*100-50)+'px');
+    estrella.style.setProperty('--y', (Math.random()*-100)+'px');
+
+    overlay.appendChild(estrella);
+    setTimeout(()=>estrella.remove(),700);
+  }
+
+  clicks++;
+
+  // Abrir regalo solo después de la última frase
+  if(clicks >= frases.length){
+    overlay.style.display = 'none';
+    fondo.style.display = 'block';
+    textoContainer.style.display = 'flex';
+    gatito.style.display = 'block';
+    musica.play().catch(err=>console.log(err));
+
+    setInterval(crearCorazon, 500);
+  }
+});
+
+// Función corazones
+function crearCorazon(){
+  const corazon = document.createElement('div');
+  corazon.classList.add('corazon');
+  corazon.style.left = Math.random()*100 + 'vw';
+  corazon.style.animationDuration = (3+Math.random()*5) + 's';
+  document.body.appendChild(corazon);
+  setTimeout(()=>corazon.remove(),8000);
+}
+</script>
+
+</body>
+</html>
